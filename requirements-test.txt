@@ -1,0 +1,5 @@
+-r requirements.txt      # подтягиваем «боевые» зависимости
+pytest
+pytest-qt
+flake8    # проверка кода
+black isort   # исправление кода по стандартам PEP

@@ -1,0 +1,13 @@
+backup
+build
+dist
+EvaWorkflows
+execute_this
+modules
+n8n_data
+ollama_data
+pgadmin_data
+postgres_data
+venv
+.env
+cloudflared.exe
