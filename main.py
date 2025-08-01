@@ -452,7 +452,7 @@ class N8nGUI(QWidget):
         self.click_sound.setVolume(0.25)
 
         # Настройки окна
-        self.setWindowTitle("n8n + Ollama GUI")
+        self.setWindowTitle("Eva: Red Dragon")
         self.setFixedSize(800, 600)
         self.setWindowIcon(QIcon(resource_path("assets/icon.ico")))
 

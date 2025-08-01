@@ -41,6 +41,8 @@ services:
       - ./n8n_data:/home/node/.n8n
       - D:/n8n_ollama_project/EvaDragon/execute_this:/execute_this
       - D:/n8n_ollama_project/EvaDragon/modules/modules:/modules
+      - D:/n8n_ollama_project/EvaDragon/audio:/audio
+      - D:/n8n_ollama_project/EvaDragon/transcriptions:/transcriptions
     depends_on:
       - postgres
     restart: unless-stopped
@@ -59,6 +61,31 @@ services:
       - ./pgadmin_data:/var/lib/pgadmin
     depends_on:
       - postgres
+    restart: unless-stopped
+    networks:
+      - n8n_ollama_net
+
+  whisper:
+    image: nosana/whisper:cuda-check
+    container_name: whisper
+    environment:
+      - LANG=en_US.UTF-8
+    volumes:
+      - D:/n8n_ollama_project/EvaDragon/audio:/home/node/audio
+      - D:/n8n_ollama_project/EvaDragon/transcriptions:/transcriptions
+      - ./process_audio.sh:/app/process_audio.sh
+    command: sh /app/process_audio.sh
+    restart: unless-stopped
+    networks:
+      - n8n_ollama_net
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama_data:/root/.ollama
     restart: unless-stopped
     networks:
       - n8n_ollama_net
