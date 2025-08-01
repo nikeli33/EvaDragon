@@ -2,52 +2,52 @@
 
 setlocal
 
-echo 🛠 Запуск сборки GUI с помощью PyInstaller...
+echo 🛠 Starting GUI build with PyInstaller...
 
-:: Переход в директорию проекта
+:: Changing to project directory
 cd /d %~dp0
 
-:: Проверка виртуального окружения
+:: Checking for virtual environment
 if not exist "venv\Scripts\activate.bat" (
-    echo 🔍 Виртуальное окружение не найдено. Запускаем setup_venv.cmd...
+    echo 🔍 Virtual environment not found. Running setup_venv.cmd...
     if exist setup_venv.cmd (
         call setup_venv.cmd
     ) else (
-        echo ❌ Файл setup_venv.cmd не найден. Невозможно продолжить.
+        echo ❌ setup_venv.cmd file not found. Cannot proceed.
         pause
         exit /b 1
     )
 )
 
-:: Повторная проверка после setup_venv.cmd
+:: Re-check after running setup_venv.cmd
 if not exist "venv\Scripts\activate.bat" (
-    echo ❌ Не удалось создать виртуальное окружение. Сборка прервана.
+    echo ❌ Failed to create virtual environment. Build interrupted.
     pause
     exit /b 1
 )
 
-:: Активация окружения
+:: Activating the environment
 call venv\Scripts\activate.bat
 
-:: Проверка и установка PyInstaller
-echo Проверка PyInstaller...
+:: Checking and installing PyInstaller
+echo Checking PyInstaller...
 pip show pyinstaller >nul 2>&1
 if errorlevel 1 (
-    echo 🔄 Установка PyInstaller...
+    echo 🔄 Installing PyInstaller...
     pip install pyinstaller
 )
 
-:: Очистка предыдущих сборок
-echo 🧹 Очистка предыдущих сборок...
+:: Cleaning up previous builds
+echo 🧹 Cleaning up previous builds...
 rmdir /s /q build dist main.spec 2>nul
 
-:: Сборка .exe файла
-echo ⚙ Сборка .exe файла...
+:: Building the .exe file
+echo ⚙ Building .exe file...
 pyinstaller --noconfirm --onefile --windowed --icon=assets/icon.ico ^
     --add-data "assets;assets" --name=Eva main.py
 
 echo.
-echo ✅ Сборка завершена!
-echo ▶ Готовый файл: dist\Eva.exe
+echo ✅ Build completed!
+echo ▶ Output file: dist\Eva.exe
 pause
-endlocal 
+endlocal
