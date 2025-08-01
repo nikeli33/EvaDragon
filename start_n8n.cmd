@@ -1,35 +1,35 @@
 @echo off
-chcp 65001 >nul
+
 setlocal enabledelayedexpansion
 
-:: Проверка запущен ли Docker
-echo Проверка состояния Docker...
+:: Checking if Docker is running
+echo Checking Docker status...
 docker version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Ошибка: Docker не запущен или не установлен
-    echo Пожалуйста, запустите Docker Desktop и попробуйте снова
+    echo Error: Docker is not running or not installed
+    echo Please start Docker Desktop and try again
     pause
     exit /b 1
 )
 
-:: Запускаем Docker контейнеры
-echo Запуск Docker контейнеров...
+:: Starting Docker containers
+echo Starting Docker containers...
 docker compose down
 if %errorlevel% neq 0 (
-    echo Ошибка при остановке контейнеров
+    echo Error stopping containers
     pause
     exit /b 1
 )
 
 docker compose up -d
 if %errorlevel% neq 0 (
-    echo Ошибка при запуске контейнеров
+    echo Error starting containers
     pause
     exit /b 1
 )
 
-:: Увеличиваем время ожидания и добавляем проверку
-echo Ожидание запуска n8n (может занять до 30 секунд)...
+:: Increasing waiting time and adding check
+echo Waiting for n8n to start (may take up to 30 seconds)...
 set "n8n_ready=0"
 set "max_n8n_attempts=30"
 set "n8n_attempt=0"
@@ -47,28 +47,28 @@ if %errorlevel% == 0 (
 if !n8n_ready! == 0 (
     echo.
     echo ========================================
-    echo ВНИМАНИЕ: n8n не запустился за 30 секунд
-    echo Попробуйте проверить вручную через минуту:
-    echo 1. Откройте http://localhost:5678
-    echo 2. Проверьте логи: docker compose logs n8n
+    echo WARNING: n8n did not start within 30 seconds
+    echo Please try checking manually in a minute:
+    echo 1. Open http://localhost:5678
+    echo 2. Check logs: docker compose logs n8n
     echo ========================================
     echo.
 )
 
-:: Открываем n8n в браузере
-echo Открытие n8n в браузере...
+:: Opening n8n in the browser
+echo Opening n8n in the browser...
 start http://localhost:5678
 
-:: Проверяем статус контейнеров
+:: Checking container status
 echo.
-echo Проверка состояния контейнеров...
+echo Checking container status...
 docker compose ps
 echo.
 echo ========================================
-echo Процесс завершен!
-echo Если n8n не загрузился, подождите ещё немного
-echo и обновите страницу в браузере
+echo Process completed!
+echo If n8n didn't load, please wait a bit longer
+echo and refresh the page in the browser
 echo ========================================
 echo.
 pause
-endlocal 
+endlocal
