@@ -35,6 +35,9 @@ services:
       N8N_PORT: "5678"
       N8N_PROTOCOL: http
       NODE_ENV: production
+      GENERIC_TIMEZONE: "Europe/Moscow"
+      N8N_HOST: "localhost"
+      WEBHOOK_URL: "http://localhost:5678/"
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "${N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS}"
       N8N_RUNNERS_ENABLED: "${N8N_RUNNERS_ENABLED}"
     volumes:
