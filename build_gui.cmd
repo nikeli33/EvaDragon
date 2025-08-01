@@ -1,5 +1,5 @@
 @echo off
-chcp 65001 >nul
+
 setlocal
 
 echo 🛠 Запуск сборки GUI с помощью PyInstaller...
