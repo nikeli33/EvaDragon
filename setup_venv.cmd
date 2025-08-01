@@ -1,29 +1,29 @@
 @echo off
-chcp 65001 >nul
+
 setlocal
 
-echo Создание виртуального окружения...
-python -m venv venv
+echo Creating virtual environment...
+py -m venv venv
 
 if errorlevel 1 (
-    echo Ошибка: Не удалось создать виртуальное окружение
+    echo Error: Failed to create virtual environment
     pause
     exit /b 1
 )
 
-echo Активация виртуального окружения...
+echo Activating virtual environment...
 call venv\Scripts\activate.bat
 
-echo Обновление pip...
+echo Upgrading pip...
 python -m pip install --upgrade pip
 
-echo Установка зависимостей из requirements.txt...
+echo Installing dependencies from requirements.txt...
 pip install -r requirements.txt
 
 echo.
-echo ✅ Установка завершена. Для запуска GUI выполните:
+echo ✅ Installation complete. To run the GUI, use:
 echo venv\Scripts\activate
 echo python main.py
 echo.
 pause
-endlocal 
+endlocal
