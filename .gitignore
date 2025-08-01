@@ -1,5 +1,6 @@
 backup
 build
+execute_this
 dist
 EvaWorkflows
 execute_this
@@ -11,3 +12,7 @@ postgres_data
 venv
 .env
 cloudflared.exe
+Eva.spec
+Назначение_файлов_папок.txt
+
+
